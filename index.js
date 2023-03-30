@@ -5,9 +5,12 @@ const { cart } = require('./routes/cart.routes');
 const { men } = require('./routes/men.routes');
 const { order } = require('./routes/order.routes');
 const { women } = require('./routes/women.routes');
-const app = express();
 require('dotenv').config();
+var cors = require('cors')
 
+
+app.use(cors())
+const app = express();
 app.use(express.json());
 
 app.use('/users', auth);
