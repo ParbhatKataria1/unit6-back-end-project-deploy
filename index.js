@@ -10,13 +10,6 @@ const { order } = require("./routes/order.routes");
 const { women } = require("./routes/women.routes");
 const { allorder } = require("./routes/allorder.routes");
 require("dotenv").config();
-app.use((req, res, next) => { 
-     res.header("Access-Control-Allow-Origin", "*")  
-       res.header("Access-Control-Allow-Headers","Origin, X-Requested, Content-Type, Accept Authorization")
-           if (req.method === "OPTIONS") 
-            { res.header("Access-Control-Allow-Methods",  "POST, PUT, PATCH, GET, DELETE"      )     
-            return res.status(200).json({})    }    next()  })
-app.use(express.json());
 
 app.use("/users", auth);
 app.use("/men", men);
