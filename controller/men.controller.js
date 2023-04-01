@@ -12,29 +12,29 @@ const addPost = async (req, res) => {
   }
 };
 
-const getPosts = async (r, res) => {
+const getPosts = async (req, res) => {
   let { page, limit, min, max, brand, category, color } = req.query;
   limit = limit == undefined ? 8 : limit;
   try {
-    // let obj = { type: "men" };
-    // if (min) {
-    //   obj.price = { $gte: min };
-    // }
-    // if (max) {
-    //   if (min) obj.price = { $lte: max, $gte: min };
-    //   else obj.price = { $lte: max };
-    // }
-    // if (brand) obj.brand = brand;
-    // if (category) obj.category = category;
-    // if (color) obj.color = color;
+    let obj = { type: "men" };
+    if (min) {
+      obj.price = { $gte: min };
+    }
+    if (max) {
+      if (min) obj.price = { $lte: max, $gte: min };
+      else obj.price = { $lte: max };
+    }
+    if (brand) obj.brand = brand;
+    if (category) obj.category = category;
+    if (color) obj.color = color;
     let data;
-    // if (page) {
-    //   data = await PostModel.find(obj)
-    //     .skip((page - 1) * limit)
-    //     .limit(limit);
-    // } else {
-    data = await PostModel.find().limit(limit);
-    // }
+    if (page) {
+      data = await PostModel.find(obj)
+        .skip((page - 1) * limit)
+        .limit(limit);
+    } else {
+      data = await PostModel.find().limit(limit);
+    }
     console.log(data);
     res.status(200).send(data);
   } catch (error) {

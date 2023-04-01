@@ -3,6 +3,7 @@ const { AuthModel } = require("../model/auth.model");
 const jwt = require("jsonwebtoken");
 
 const register = async (req, res) => {
+  console.log(req.body, "this is body");
   let { email } = req.body;
   let data = await AuthModel.findOne({ email });
   try {
@@ -17,18 +18,14 @@ const register = async (req, res) => {
       bcrypt.compare(first_name + last_name, hash, function (err, result) {
         // result == false
         if (err)
-          res
-            .status(400)
-            .send({
-              msg: "login details are wrong or not able to compare the hash",
-            });
+          res.status(400).send({
+            msg: "login details are wrong or not able to compare the hash",
+          });
         if (result)
-          res
-            .status(200)
-            .send({
-              msg: "user is logged in ",
-              token: jwt.sign({ userId: _id }, "masai"),
-            });
+          res.status(200).send({
+            msg: "user is logged in ",
+            token: jwt.sign({ userId: _id }, "masai"),
+          });
       });
     } else {
       bcrypt.hash(first_name + last_name, 5, async (err, hash) => {
@@ -50,18 +47,14 @@ const register = async (req, res) => {
             last_name,
           });
           if (_id)
-            res
-              .status(200)
-              .send({
-                msg: "user is logged in2 ",
-                token: jwt.sign({ userId: _id }, "masai"),
-              });
+            res.status(200).send({
+              msg: "user is logged in2 ",
+              token: jwt.sign({ userId: _id }, "masai"),
+            });
           else
-            res
-              .status(400)
-              .send({
-                msg: "login details are wrong or not able to compare the hash2",
-              });
+            res.status(400).send({
+              msg: "login details are wrong or not able to compare the hash2",
+            });
         }
         // Store hash in your password DB.
       });
@@ -85,18 +78,14 @@ const login = async (req, res) => {
     bcrypt.compare(password, hash, function (err, result) {
       // result == false
       if (err)
-        res
-          .status(400)
-          .send({
-            msg: "login details are wrong or not able to compare the hash",
-          });
+        res.status(400).send({
+          msg: "login details are wrong or not able to compare the hash",
+        });
       if (result)
-        res
-          .status(200)
-          .send({
-            msg: "user is logged in ",
-            token: jwt.sign({ userId: _id }, "masai"),
-          });
+        res.status(200).send({
+          msg: "user is logged in ",
+          token: jwt.sign({ userId: _id }, "masai"),
+        });
     });
   } catch (error) {
     res.status(400).send({ msg: "not able to login" });
