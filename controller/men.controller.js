@@ -33,7 +33,7 @@ const getPosts = async (req, res) => {
         .skip((page - 1) * limit)
         .limit(limit);
     } else {
-      data = await PostModel.find().limit(limit);
+      data = await PostModel.find(obj).limit(limit);
     }
     console.log(data);
     res.status(200).send(data);
