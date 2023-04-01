@@ -1,4 +1,7 @@
 const express = require("express");
+const app = express();
+const cors = require("cors");
+app.use(cors());
 const { connection } = require("./db");
 const { auth } = require("./routes/auth.routes");
 const { cart } = require("./routes/cart.routes");
@@ -6,11 +9,7 @@ const { men } = require("./routes/men.routes");
 const { order } = require("./routes/order.routes");
 const { women } = require("./routes/women.routes");
 const { allorder } = require("./routes/allorder.routes");
-const app = express();
 require("dotenv").config();
-const cors = require("cors");
-
-app.use(cors());
 
 app.use(express.json());
 
