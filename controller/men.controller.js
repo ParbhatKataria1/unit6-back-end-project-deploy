@@ -13,12 +13,15 @@ const addPost = async (req, res) => {
 };
 
 const getPosts = async (req, res) => {
-  let { page, limit, min, max, brand, category, color } = req.query;
+  let { page, limit, min, max, brand, category, color, title } = req.query;
   limit = limit == undefined ? 8 : limit;
   try {
     let obj = { type: "men" };
     if (min) {
       obj.price = { $gte: min };
+    }
+    if (title) {
+      obj.title = { $regex: title, $options: "i" };
     }
     if (max) {
       if (min) obj.price = { $lte: max, $gte: min };
