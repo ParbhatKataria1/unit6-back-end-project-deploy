@@ -16,20 +16,12 @@ const addPost = async (req, res) => {
 const getPosts = async (req, res) => {
   let { page, limit } = req.query;
   limit = limit == undefined ? 8 : limit;
+  
   try {
     let { userId } = req.body;
     let obj = { userId };
-    //    if(min){
-    //     obj.no_of_comments={$gte:min}
-    //    }
-    //    if(max){
-    //     if(min)obj.no_of_comments={$lte:max, $gte:min};
-    //     else obj.no_of_comments={$lte:max};
-    //    }
-    //    if(device){
-    //     obj.device = device;
-    //    }
     let data;
+    let length = await OrderModel.find(obj);
     if (page) {
       data = await OrderModel.find(obj)
         .skip((page - 1) * limit)
@@ -37,7 +29,7 @@ const getPosts = async (req, res) => {
     } else {
       data = await OrderModel.find(obj).limit(limit);
     }
-    res.status(200).send(data);
+    res.status(200).send({data ,length});
   } catch (error) {
     res.status(400).send({ msg: "not able to get the data" });
   }
