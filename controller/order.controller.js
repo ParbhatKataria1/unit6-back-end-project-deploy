@@ -22,6 +22,7 @@ const getPosts = async (req, res) => {
     let obj = { userId };
     let data;
     let length = await OrderModel.find(obj);
+    length = length.length;
     if (page) {
       data = await OrderModel.find(obj)
         .skip((page - 1) * limit)
